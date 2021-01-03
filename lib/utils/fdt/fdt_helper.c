@@ -346,6 +346,25 @@ int fdt_parse_uart8250(void *fdt, struct platform_uart_data *uart,
 	return fdt_parse_uart8250_node(fdt, nodeoffset, uart);
 }
 
+int fdt_parse_xilinx_uart_lite_node(void *fdt, int nodeoffset,
+			                        struct platform_uart_data *uart)
+{
+	int rc;
+	unsigned long reg_addr, reg_size;
+
+	if (nodeoffset < 0 || !uart || !fdt)
+		return SBI_ENODEV;
+
+	rc = fdt_get_node_addr_size(fdt, nodeoffset, &reg_addr, &reg_size);
+	if (rc < 0 || !reg_addr || !reg_size)
+		return SBI_ENODEV;
+	uart->addr = reg_addr;
+
+	// TODO: Might need some more properties...
+
+	return 0;
+}
+
 int fdt_parse_plic_node(void *fdt, int nodeoffset, struct plic_data *plic)
 {
 	int len, rc;

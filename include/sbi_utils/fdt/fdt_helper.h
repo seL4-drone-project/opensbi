@@ -51,6 +51,9 @@ int fdt_parse_uart8250_node(void *fdt, int nodeoffset,
 int fdt_parse_uart8250(void *fdt, struct platform_uart_data *uart,
 		       const char *compatible);
 
+int fdt_parse_xilinx_uart_lite_node(void *fdt, int nodeoffset,
+			                        struct platform_uart_data *uart);
+
 struct plic_data;
 
 int fdt_parse_plic_node(void *fdt, int nodeoffset, struct plic_data *plic);

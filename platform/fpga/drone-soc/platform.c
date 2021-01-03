@@ -12,14 +12,10 @@
 #include <sbi/sbi_platform.h>
 #include <sbi_utils/fdt/fdt_fixup.h>
 #include <sbi_utils/irqchip/plic.h>
-#include <sbi_utils/serial/uart8250.h>
+#include <sbi_utils/serial/xilinx-uart-lite.h>
 #include <sbi_utils/sys/clint.h>
 
 #define ARIANE_UART_ADDR 0x10000000
-#define ARIANE_UART_FREQ 50000000
-#define ARIANE_UART_BAUDRATE 115200
-#define ARIANE_UART_REG_SHIFT 2
-#define ARIANE_UART_REG_WIDTH 4
 #define ARIANE_PLIC_ADDR 0xc000000
 #define ARIANE_PLIC_NUM_SOURCES 3
 #define ARIANE_HART_COUNT 1
@@ -67,9 +63,7 @@ static int ariane_final_init(bool cold_boot)
  */
 static int ariane_console_init(void)
 {
-	return uart8250_init(ARIANE_UART_ADDR, ARIANE_UART_FREQ,
-			     ARIANE_UART_BAUDRATE, ARIANE_UART_REG_SHIFT,
-			     ARIANE_UART_REG_WIDTH);
+	return xilinx_uart_lite_init(ARIANE_UART_ADDR);
 }
 
 static int plic_ariane_warm_irqchip_init(int m_cntx_id, int s_cntx_id)
@@ -151,8 +145,8 @@ const struct sbi_platform_operations platform_ops = {
 	.early_init	   = ariane_early_init,
 	.final_init	   = ariane_final_init,
 	.console_init	   = ariane_console_init,
-	.console_putc	   = uart8250_putc,
-	.console_getc	   = uart8250_getc,
+	.console_putc	   = xilinx_uart_lite_putc,
+	.console_getc	   = xilinx_uart_lite_getc,
 	.irqchip_init	   = ariane_irqchip_init,
 	.ipi_init	   = ariane_ipi_init,
 	.ipi_send	   = clint_ipi_send,
