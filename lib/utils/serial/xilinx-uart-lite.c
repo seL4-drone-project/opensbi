@@ -34,7 +34,7 @@
 
 /* clang-format on */
 
-static volatile void *uart_base;
+static volatile uint32_t *uart_base;
 
 void xilinx_uart_lite_putc(char ch)
 {
@@ -60,7 +60,7 @@ int xilinx_uart_lite_getc(void)
 
 int xilinx_uart_lite_init(unsigned long base)
 {
-	uart_base = (volatile void *)base;
+	uart_base = (volatile uint32_t *)base;
 
 	// TODO: Configure IP in defined state.
 
