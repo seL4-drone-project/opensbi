@@ -19,7 +19,7 @@
 #define ARIANE_PLIC_ADDR 0xc000000
 #define ARIANE_PLIC_NUM_SOURCES 3
 #define ARIANE_HART_COUNT 1
-#define ARIANE_CLINT_ADDR 0x2000000
+#define ARIANE_CLINT_ADDR 0x10010000
 
 static struct plic_data plic = {
 	.addr	 = ARIANE_PLIC_ADDR,
